@@ -14,3 +14,4 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     status = models.CharField(choices=STATUS_CHOICES,default=IN_PROGRESS_CHOICE,max_length=50)
+    address=models.ForeignKey('address.Address',on_delete=models.SET_NULL,null=True,related_name="user_address")

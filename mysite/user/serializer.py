@@ -14,6 +14,7 @@ class UserSerializer(serializers.ModelSerializer):
             'last_name',
             'email',
             'password',
+            'id',
         )
 
     def validate_password(self, value: str):

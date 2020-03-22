@@ -31,10 +31,21 @@ class Product(models.Model):
     type = models.CharField(choices=TYPE_CHOICES, default=MILK_CHOICE,max_length=20)
     status = models.CharField(choices= STATUS_CHOICES,default=AVAILABLE,max_length=50)
     unit_type=models.CharField(choices=UNIT_TYPE_CHOICES,default=PIECE_CHOICE,max_length=50)
+    price = models.DecimalField(max_digits=5, decimal_places=2,default=0.00)
+    info=models.TextField(default=True)
+
+
+def product_image_directory_path(instance, filename):
+    return f'product_{instance.product.id}/{filename}'
+
+
+class ProductImage(models.Model):
+    image = models.ImageField(upload_to=product_image_directory_path)
+    product = models.ForeignKey('product.Product',on_delete=models.CASCADE,related_name='product_images')
 
 
 class OrderedProduct(models.Model):
-    order = models.ForeignKey('order.Order',on_delete=models.CASCADE,related_name="products")
+    order = models.ForeignKey('order.Order',on_delete=models.CASCADE,related_name="products", null=True)
     product = models.ForeignKey('product.Product',on_delete=models.CASCADE, related_name='ordered_products')
     count = models.IntegerField()
 # Create your models here.
