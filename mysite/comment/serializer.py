@@ -6,7 +6,7 @@ from user.serializer import UserSerializer
 
 class CommentSerializer(serializers.ModelSerializer):
     product_id = serializers.IntegerField(write_only=True)
-    user = UserSerializer()
+
     class Meta:
         model = Comment
         fields = (
@@ -14,6 +14,8 @@ class CommentSerializer(serializers.ModelSerializer):
             'user',
             'product_id',
             'id',
+            'name'
+
         )
 
         def create(self, validated_data):
